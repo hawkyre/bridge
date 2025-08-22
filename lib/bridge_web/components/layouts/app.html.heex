@@ -1,32 +1,24 @@
-<header class="px-4 sm:px-6 lg:px-8">
-  <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
-    <div class="flex items-center gap-4">
-      <a href="/">
-        <img src={~p"/images/logo.svg"} width="36" />
-      </a>
-      <p class="bg-brand/5 text-brand rounded-full px-2 font-medium leading-6">
-        v{Application.spec(:phoenix, :vsn)}
-      </p>
-    </div>
-    <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
-      <a href="https://twitter.com/elixirphoenix" class="hover:text-zinc-700">
-        @elixirphoenix
-      </a>
-      <a href="https://github.com/phoenixframework/phoenix" class="hover:text-zinc-700">
-        GitHub
-      </a>
+<!-- Professional Navbar -->
+<nav
+  class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 backdrop-blur-glass border border-gray-200/60 rounded-2xl shadow-medium w-full max-w-6xl mx-4"
+>
+  <div class="p-2">
+    <div class="flex justify-between items-center">
+      <!-- Brand -->
+      <div class="flex items-center">
+        <span class="font-display text-xl text-primary ml-4">Bridge</span>
+      </div>
+
+      <!-- CTA Button -->
       <a
-        href="https://hexdocs.pm/phoenix/overview.html"
-        class="rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80"
+        href="#signup"
+        class="btn-primary inline-flex items-center justify-center font-primary text-sm"
       >
-        Get Started <span aria-hidden="true">&rarr;</span>
+        Get Updates
       </a>
     </div>
   </div>
-</header>
-<main class="px-4 py-20 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-2xl">
-    <.flash_group flash={@flash} />
-    {@inner_content}
-  </div>
-</main>
+</nav>
+
+<!-- Main content with padding for floating navbar -->
+<main class="pt-24"><.flash_group flash={@flash} /> {@inner_content}</main>
