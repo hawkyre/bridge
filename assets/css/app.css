@@ -4,110 +4,28 @@
 /* Using Ovo for headers and Inter for body text */
 
 /* Monochrome Color Palette */
-:root {
+@theme {
   /* Primary Brand Color - Purple accent */
-  --primary-purple: #7b68ee; /* Medium Slate Blue */
-  --primary-light: #9b8def; /* Lighter purple */
-  --primary-dark: #5a4fcf; /* Darker purple */
-
-  /* Neutral Colors */
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
-  --gray-400: #9ca3af;
-  --gray-500: #6b7280;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
-  --gray-800: #1f2937;
-  --gray-900: #111827;
+  --color-primary: #7b68ee; /* Medium Slate Blue */
+  --color-primary-light: #9b8def; /* Lighter purple */
+  --color-primary-dark: #5a4fcf; /* Darker purple */
 
   /* Text Colors */
-  --text-primary: var(--gray-900);
-  --text-secondary: var(--gray-600);
-  --text-muted: var(--gray-500);
+  --color-text-primary: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-600);
+  --color-text-muted: var(--color-gray-500);
 
   /* Background Colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: var(--gray-50);
-  --bg-dark: var(--gray-900);
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: var(--color-gray-50);
+  --color-bg-dark: var(--color-gray-900);
+
+  --font-primary: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Ovo', serif;
 }
 
-/* Modern Utility Classes */
-.text-primary {
-  color: var(--text-primary);
-}
-.text-secondary {
-  color: var(--text-secondary);
-}
-.text-muted {
-  color: var(--text-muted);
-}
-
-.text-purple {
-  color: var(--primary-purple);
-}
-.text-light {
-  color: var(--primary-light);
-}
-
-.bg-purple {
-  background-color: var(--primary-purple);
-}
-.bg-light {
-  background-color: var(--primary-light);
-}
-.bg-primary-light {
-  background-color: var(--primary-light);
-}
-
-/* Legacy compatibility classes updated for monochrome */
-.text-violet {
-  color: var(--primary-purple);
-}
-.text-blue {
-  color: var(--primary-purple);
-}
-.text-emerald {
-  color: var(--gray-700);
-}
-.text-orange {
-  color: var(--primary-light);
-}
-
-.bg-violet {
-  background-color: var(--primary-purple);
-}
-.bg-blue {
-  background-color: var(--primary-purple);
-}
-.bg-emerald {
-  background-color: var(--gray-700);
-}
-.bg-orange {
-  background-color: var(--primary-light);
-}
-
-/* Typography - Ovo for headers, Inter for body */
-.font-primary {
-  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-}
-
-.font-mono {
-  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  font-weight: 500;
-}
-
-.font-display {
-  font-family: 'Ovo', serif;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-}
-
-/* Monochrome Gradient Backgrounds */
+/* Monochrome Gradient Backgrounds
 .gradient-primary {
   background: linear-gradient(
     135deg,
@@ -130,81 +48,67 @@
     var(--primary-purple) 0%,
     var(--primary-light) 100%
   );
-}
+} */
 
 /* Modern Button Styles */
 .btn-primary {
-  background: var(--primary-purple);
-  color: white;
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
-  transition: all 0.2s ease;
-  border: 1px solid transparent;
-}
-
-.btn-primary:hover {
-  background: var(--primary-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 25px -5px rgba(123, 104, 238, 0.3);
+  @apply bg-primary text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 border border-transparent hover:bg-primary-dark hover:translate-y-[-2px] hover:shadow-sm;
 }
 
 .btn-secondary {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
-  transition: all 0.2s ease;
-  border: 1px solid var(--gray-200);
-}
-
-.btn-secondary:hover {
-  background: var(--gray-50);
-  border-color: var(--primary-purple);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  @apply bg-white text-primary border border-primary font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:bg-primary/10 hover:translate-y-[-2px] hover:shadow-sm;
 }
 
 /* Professional Card Styles */
 .card {
-  background: var(--bg-primary);
-  border-radius: 1rem;
-  padding: 2rem;
-  border: 1px solid var(--gray-200);
-  transition: all 0.3s ease;
+  @apply bg-white rounded-xl p-8 border border-gray-200 transition-all duration-300 hover:border-primary hover:shadow-sm hover:translate-y-[-2px];
 }
 
-.card:hover {
-  border-color: var(--primary-purple);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  transform: translateY(-2px);
+.card.card-red:hover {
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, #e60026, #ff1744, #ff6b7a, #e60026) border-box;
+  border: 1px solid transparent;
+  border-radius: 0.75rem; /* 12px to match rounded-xl */
+  transition: all 0.3s ease-in-out;
+}
+
+.card.card-light-red:hover {
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, #f7929f, #ff69b4, #ffc0cb, #f7929f) border-box;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.card.card-green:hover {
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, #00b900, #00e676, #4caf50, #00b900) border-box;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.card.card-black:hover {
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, #000000, #424242, #757575, #000000) border-box;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Professional Card Styles */
+.card.card-sm {
+  @apply rounded-lg p-4;
 }
 
 .card-featured {
+  @apply border-primary;
+
   background: linear-gradient(
     135deg,
     rgba(123, 104, 238, 0.05) 0%,
     rgba(155, 141, 239, 0.05) 100%
   );
-  border-color: var(--primary-purple);
-}
-
-/* Modern Shadow System */
-.shadow-soft {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-.shadow-medium {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-.shadow-large {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Professional Animations */
@@ -252,6 +156,7 @@
   }
 }
 
+/* TODO - maybe use taiwlind scrollbar */
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -262,7 +167,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-purple);
+  background: var(--primary);
   border-radius: 3px;
 }
 
@@ -272,55 +177,26 @@
 
 /* Global Styles */
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @apply bg-white text-gray-900 font-primary leading-relaxed;
 }
 
-/* Selection Styles */
+h1 {
+  @apply font-display text-4xl lg:text-7xl;
+}
+
+h2 {
+  @apply font-display text-2xl lg:text-4xl;
+}
+
 ::selection {
-  background-color: rgba(123, 104, 238, 0.2);
-  color: var(--text-primary);
+  @apply bg-primary text-white;
 }
 
-/* Focus States */
-*:focus {
-  outline: 2px solid var(--primary-purple);
-  outline-offset: 2px;
-}
-
-/* Backdrop Blur Utilities */
 .backdrop-blur-glass {
   backdrop-filter: blur(16px) saturate(180%);
   background-color: rgba(255, 255, 255, 0.75);
 }
 
-.backdrop-blur-dark {
-  backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(17, 24, 39, 0.75);
-}
-
-/* Professional spacing utilities */
 .section-padding {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  @apply py-20 md:py-24 lg:py-32;
 }
-
-@media (min-width: 768px) {
-  .section-padding {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-padding {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
-  }
-}
-
-/* This file is for your main application CSS */
