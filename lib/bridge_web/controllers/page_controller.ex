@@ -1,17 +1,18 @@
 defmodule BridgeWeb.PageController do
+  @moduledoc """
+  Handles the landing page and waitlist registration.
+  """
+
   use BridgeWeb, :controller
-  alias Bridge.Repo
-  alias Bridge.Bridge.EmailSubscription
+
+  alias Bridge.Landing.Waitlist
 
   def home(conn, _params) do
-    # Use the app layout to show the navbar
     render(conn, :home)
   end
 
   def register_email(conn, %{"email" => email}) do
-    changeset = EmailSubscription.changeset(%EmailSubscription{}, %{email: email})
-
-    case Repo.insert(changeset) do
+    case Waitlist.add(email) do
       {:ok, _subscription} ->
         conn
         |> put_flash(:info, "🎉 Welcome to the revolution! You're on the list for early access.")
@@ -19,7 +20,7 @@ defmodule BridgeWeb.PageController do
 
       {:error, %Ecto.Changeset{errors: [email: {_, [constraint: :unique, constraint_name: _]}]}} ->
         conn
-        |> put_flash(:info, "💚 You're already signed up! We'll be in touch soon.")
+        |> put_flash(:info, "🎉 Welcome to the revolution! You're on the list for early access.")
         |> redirect(to: ~p"/")
 
       {:error, _changeset} ->

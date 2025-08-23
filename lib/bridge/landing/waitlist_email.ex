@@ -1,10 +1,14 @@
-defmodule Bridge.Bridge.EmailSubscription do
-  use Ecto.Schema
+defmodule Bridge.Landing.WaitlistEmail do
+  @moduledoc """
+  A schema for email subscriptions.
+  """
+
+  use TypedEctoSchema
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "email_subscriptions" do
+  typed_schema "waitlist_emails" do
     field :email, :string
 
     timestamps(type: :utc_datetime)

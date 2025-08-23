@@ -274,7 +274,7 @@
         <input
           type="hidden"
           name="_csrf_token"
-          value="{Phoenix.HTML.Form.csrf_token()}"
+          value={Phoenix.Controller.get_csrf_token()}
         />
         <input
           type="email"
