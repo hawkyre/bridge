@@ -9,6 +9,7 @@
   --color-primary: #7b68ee; /* Medium Slate Blue */
   --color-primary-light: #9b8def; /* Lighter purple */
   --color-primary-dark: #5a4fcf; /* Darker purple */
+  --color-primary-darker: #362ca2; /* Darker purple */
 
   /* Text Colors */
   --color-text-primary: var(--color-gray-900);
@@ -52,7 +53,7 @@
 
 /* Modern Button Styles */
 .btn-primary {
-  @apply bg-primary text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 border border-transparent hover:bg-primary-dark hover:translate-y-[-2px] hover:shadow-sm;
+  @apply bg-gradient-to-br from-primary to-primary-dark text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:translate-y-[-2px] hover:shadow-sm;
 }
 
 .btn-secondary {
