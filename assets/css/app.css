@@ -1,5 +1,203 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss';
 
-/* This file is for your main application CSS */
+/* BRIDGE - MONOCHROME DESIGN SYSTEM */
+/* Using Ovo for headers and Inter for body text */
+
+/* Monochrome Color Palette */
+@theme {
+  /* Primary Brand Color - Purple accent */
+  --color-primary: #7b68ee; /* Medium Slate Blue */
+  --color-primary-light: #9b8def; /* Lighter purple */
+  --color-primary-dark: #5a4fcf; /* Darker purple */
+  --color-primary-darker: #362ca2; /* Darker purple */
+
+  /* Text Colors */
+  --color-text-primary: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-600);
+  --color-text-muted: var(--color-gray-500);
+
+  /* Background Colors */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: var(--color-gray-50);
+  --color-bg-dark: var(--color-gray-900);
+
+  --font-primary: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Ovo', serif;
+}
+
+/* Monochrome Gradient Backgrounds
+.gradient-primary {
+  background: linear-gradient(
+    135deg,
+    var(--primary-dark) 0%,
+    var(--primary-purple) 100%
+  );
+}
+
+.gradient-secondary {
+  background: linear-gradient(
+    135deg,
+    var(--primary-light) 0%,
+    var(--primary-purple) 100%
+  );
+}
+
+.gradient-warm {
+  background: linear-gradient(
+    135deg,
+    var(--primary-purple) 0%,
+    var(--primary-light) 100%
+  );
+} */
+
+/* Modern Button Styles */
+.btn-primary {
+  @apply bg-gradient-to-br from-primary to-primary-dark text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:translate-y-[-2px] hover:shadow-sm;
+}
+
+.btn-secondary {
+  @apply bg-white text-primary border border-primary font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:bg-primary/10 hover:translate-y-[-2px] hover:shadow-sm;
+}
+
+/* Professional Card Styles */
+.card {
+  @apply bg-white rounded-xl p-8 border border-gray-200 transition-all duration-300 hover:border-primary hover:shadow-sm hover:translate-y-[-2px];
+}
+
+.card.card-red:hover {
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, #e60026, #ff1744, #ff6b7a, #e60026) border-box;
+  border: 1px solid transparent;
+  border-radius: 0.75rem; /* 12px to match rounded-xl */
+  transition: all 0.3s ease-in-out;
+}
+
+.card.card-light-red:hover {
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, #f7929f, #ff69b4, #ffc0cb, #f7929f) border-box;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.card.card-green:hover {
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, #00b900, #00e676, #4caf50, #00b900) border-box;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.card.card-black:hover {
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, #000000, #424242, #757575, #000000) border-box;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Professional Card Styles */
+.card.card-sm {
+  @apply rounded-lg p-4;
+}
+
+.card-featured {
+  @apply border-primary;
+
+  background: linear-gradient(
+    135deg,
+    rgba(123, 104, 238, 0.05) 0%,
+    rgba(155, 141, 239, 0.05) 100%
+  );
+}
+
+/* Professional Animations */
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* TODO - maybe use taiwlind scrollbar */
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Global Styles */
+body {
+  @apply bg-white text-gray-900 font-primary leading-relaxed;
+}
+
+h1 {
+  @apply font-display text-4xl lg:text-7xl;
+}
+
+h2 {
+  @apply font-display text-2xl lg:text-4xl;
+}
+
+::selection {
+  @apply bg-primary text-white;
+}
+
+.backdrop-blur-glass {
+  backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.section-padding {
+  @apply py-20 md:py-24 lg:py-32;
+}
