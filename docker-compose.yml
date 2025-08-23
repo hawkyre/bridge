@@ -1,0 +1,54 @@
+services:
+  bridge-db:
+    image: postgres:16
+    container_name: bridge-db
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    command: -p 5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bridge_dev
+      POSTGRES_HOST_AUTH_METHOD: trust
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -p 5432']
+      interval: 5s
+      timeout: 15s
+      retries: 10
+      start_period: 30s
+
+  bridge:
+    build: .
+    container_name: bridge
+    environment:
+      - MIX_ENV=dev
+      - DOCKER_ENV=true
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOSTNAME=bridge-db
+      - DB_NAME=bridge_dev
+      - SECRET_KEY_BASE=EQA3xehC005QINEHtjCGC5zTLwh031/Kl3MhD/kXBNOyJzrcKbEpraRcarSybTww
+    ports:
+      - '4000:4000'
+    volumes:
+      - .:/app
+      - /app/deps
+      - /app/_build
+    depends_on:
+      bridge-db:
+        condition: service_healthy
+    command: >
+      sh -c "
+        mix deps.get &&
+        mix ecto.setup &&
+        mix assets.setup &&
+        mix assets.build &&
+        mix phx.server
+      "
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres_data:
