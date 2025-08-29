@@ -177,7 +177,7 @@ defmodule Bridge.Courses.LessonTest do
       changeset = Lesson.changeset(%Lesson{}, attrs)
       {:error, changeset} = Repo.insert(changeset)
 
-      assert "has already been taken" in errors_on(changeset).slug
+      assert "has already been taken" in errors_on(changeset).course_id
     end
 
     test "allows same slug in different courses" do
@@ -211,7 +211,7 @@ defmodule Bridge.Courses.LessonTest do
       changeset = Lesson.create_changeset(%Lesson{}, attrs)
 
       assert changeset.valid?
-      assert get_change(changeset, :visible) == false
+      refute assert get_change(changeset, :visible)
     end
 
     test "overrides visible field even if provided as true" do

@@ -20,8 +20,9 @@ services:
       start_period: 30s
 
   bridge:
-    build: dev/Dockerfile
-    container_name: bridge
+    build:
+      context: .
+      dockerfile: dev/Dockerfile
     environment:
       - MIX_ENV=dev
       - DOCKER_ENV=true
