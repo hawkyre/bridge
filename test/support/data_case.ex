@@ -20,6 +20,7 @@ defmodule Bridge.DataCase do
     quote do
       alias Bridge.Repo
 
+      import Bridge.Factory
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
