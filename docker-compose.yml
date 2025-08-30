@@ -23,6 +23,7 @@ services:
     build:
       context: .
       dockerfile: dev/Dockerfile
+    container_name: bridge
     environment:
       - MIX_ENV=dev
       - DOCKER_ENV=true

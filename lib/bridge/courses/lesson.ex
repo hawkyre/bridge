@@ -10,6 +10,7 @@ defmodule Bridge.Courses.Lesson do
   import Ecto.Changeset
 
   alias Bridge.Courses.{Course, LessonTag}
+  alias Bridge.Format.Slug
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -56,9 +57,7 @@ defmodule Bridge.Courses.Lesson do
     |> validate_length(:description, max: 2000)
     |> validate_length(:slug, max: 50)
     |> validate_number(:order, greater_than: 0)
-    |> validate_format(:slug, ~r/^[a-z0-9-]+$/,
-      message: "must only contain lowercase letters, numbers, and hyphens"
-    )
+    |> Slug.validate()
     |> unique_constraint([:course_id, :slug])
     |> foreign_key_constraint(:course_id)
   end
@@ -70,24 +69,5 @@ defmodule Bridge.Courses.Lesson do
     lesson
     |> changeset(attrs)
     |> put_change(:visible, false)
-  end
-
-  @doc """
-  Changeset for updating lesson visibility.
-  """
-  def visibility_changeset(lesson, attrs) do
-    lesson
-    |> cast(attrs, [:visible])
-    |> validate_required([:visible])
-  end
-
-  @doc """
-  Changeset for reordering lessons within a course.
-  """
-  def order_changeset(lesson, attrs) do
-    lesson
-    |> cast(attrs, [:order])
-    |> validate_required([:order])
-    |> validate_number(:order, greater_than: 0)
   end
 end

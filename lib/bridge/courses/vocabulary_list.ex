@@ -10,6 +10,7 @@ defmodule Bridge.Courses.VocabularyList do
   import Ecto.Changeset
 
   alias Bridge.Courses.{Course, Card}
+  alias Bridge.Format.Slug
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -31,9 +32,7 @@ defmodule Bridge.Courses.VocabularyList do
     |> validate_required([:name, :slug, :course_id])
     |> validate_length(:name, max: 200)
     |> validate_length(:slug, max: 50)
-    |> validate_format(:slug, ~r/^[a-z0-9-]+$/,
-      message: "must only contain lowercase letters, numbers, and hyphens"
-    )
+    |> Slug.validate()
     |> unique_constraint(:slug)
     |> foreign_key_constraint(:course_id)
   end

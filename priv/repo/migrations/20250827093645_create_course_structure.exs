@@ -19,27 +19,25 @@ defmodule Bridge.Repo.Migrations.CreateCourseStructure do
     create index(:courses, [:instruction_language_code])
     create index(:courses, [:visible])
 
-    create table(:lesson_tags, primary_key: false) do
+    create table(:tags, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :course_id, references(:courses, type: :binary_id), null: false
       add :key, :string, size: 40, null: false
 
       timestamps()
     end
 
-    create unique_index(:lesson_tags, [:key])
-    create index(:lesson_tags, [:course_id])
+    create unique_index(:tags, [:key])
 
     create table(:tag_translations, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :lesson_tag_id, references(:lesson_tags, type: :binary_id), null: false
+      add :tag_id, references(:tags, type: :binary_id), null: false
       add :language_code, :string, size: 5, null: false
       add :name, :string, size: 100, null: false
 
       timestamps()
     end
 
-    create unique_index(:tag_translations, [:lesson_tag_id, :language_code])
+    create unique_index(:tag_translations, [:tag_id, :language_code])
     create index(:tag_translations, [:language_code])
 
     create table(:lessons, primary_key: false) do
@@ -62,16 +60,16 @@ defmodule Bridge.Repo.Migrations.CreateCourseStructure do
     create index(:lessons, [:level])
     create index(:lessons, [:order])
 
-    create table(:lesson_tag_in_lesson, primary_key: false) do
+    create table(:lesson_tags, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :lesson_id, references(:lessons, type: :binary_id), null: false
-      add :lesson_tag_id, references(:lesson_tags, type: :binary_id), null: false
+      add :tag_id, references(:tags, type: :binary_id), null: false
 
       timestamps()
     end
 
-    create unique_index(:lesson_tag_in_lesson, [:lesson_id, :lesson_tag_id])
-    create index(:lesson_tag_in_lesson, [:lesson_tag_id])
+    create unique_index(:lesson_tags, [:lesson_id, :tag_id])
+    create index(:lesson_tags, [:tag_id])
 
     create table(:card_templates, primary_key: false) do
       add :id, :binary_id, primary_key: true

@@ -43,29 +43,17 @@ defmodule Bridge.Courses.Card do
   - No unknown fields are included
   - Field values match expected types
   """
-  def validate_fields_structure(changeset) do
+  defp validate_fields_structure(changeset) do
     case get_field(changeset, :fields) do
       nil ->
         changeset
 
       fields when is_map(fields) ->
-        # Note: Full template validation would require loading the template
-        # For now, we just validate that fields is a map
-        # Template-specific validation should be done at the business logic level
+        # TODO - validate fields against template
         changeset
 
       _invalid ->
         add_error(changeset, :fields, "must be a map of field values")
     end
-  end
-
-  @doc """
-  Changeset for updating card fields while preserving template compliance.
-  """
-  def update_fields_changeset(card, attrs) do
-    card
-    |> cast(attrs, [:fields])
-    |> validate_required([:fields])
-    |> validate_fields_structure()
   end
 end

@@ -12,8 +12,8 @@ defmodule Bridge.Factory do
   alias Bridge.Courses.{
     Course,
     Lesson,
+    Tag,
     LessonTag,
-    LessonTagInLesson,
     TagTranslation,
     CardTemplate,
     Card,
@@ -74,7 +74,7 @@ defmodule Bridge.Factory do
   Creates a lesson with realistic fake data.
   """
   def lesson_factory do
-    topic = Ecto.UUID.generate() |> String.slice(0, 13)
+    topic = "a" <> (Ecto.UUID.generate() |> String.slice(0, 13))
     order = Enum.random(1..50)
 
     level = 1..6 |> Enum.random() |> Integer.to_string()
@@ -106,7 +106,7 @@ defmodule Bridge.Factory do
   @doc """
   Creates a lesson tag with realistic fake data.
   """
-  def lesson_tag_factory do
+  def tag_factory do
     tag_keys = [
       "verbs",
       "nouns",
@@ -136,19 +136,16 @@ defmodule Bridge.Factory do
 
     key = Enum.random(tag_keys)
 
-    %LessonTag{
-      key: key,
-      course: build(:course)
-    }
+    %Tag{key: key}
   end
 
   @doc """
-  Creates a lesson tag in lesson association.
+  Creates a lesson tag association.
   """
-  def lesson_tag_in_lesson_factory do
-    %LessonTagInLesson{
+  def lesson_tag_factory do
+    %LessonTag{
       lesson: build(:lesson),
-      lesson_tag: build(:lesson_tag)
+      tag: build(:tag)
     }
   end
 
@@ -159,14 +156,14 @@ defmodule Bridge.Factory do
     language_codes = ["en", "es", "fr", "de", "pt", "it", "ja", "ko", "zh", "ar", "ru"]
     language_code = Enum.random(language_codes)
 
-    lesson_tag = build(:lesson_tag)
+    tag = build(:tag)
     # Generate translation based on the tag key and language
-    name = translate_tag_name(lesson_tag.key, language_code)
+    name = translate_tag_name(tag.key, language_code)
 
     %TagTranslation{
       language_code: language_code,
       name: name,
-      lesson_tag: lesson_tag
+      tag: tag
     }
   end
 

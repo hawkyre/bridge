@@ -16,6 +16,7 @@ defmodule Bridge.Courses.CardTemplate do
   @foreign_key_type :binary_id
 
   @field_types ~w(short_text long_text audio_url image_url single_choice multiple_choice examples)
+  @valid_field_map_keys ~w(key type required)
 
   typed_schema "card_templates" do
     field :name, :string
@@ -49,6 +50,9 @@ defmodule Bridge.Courses.CardTemplate do
       nil ->
         changeset
 
+      [] ->
+        add_error(changeset, :fields, "must have at least one field")
+
       fields when is_list(fields) ->
         if valid_fields_structure?(fields) do
           changeset
@@ -65,9 +69,10 @@ defmodule Bridge.Courses.CardTemplate do
     Enum.all?(fields, &valid_field_definition?/1)
   end
 
-  defp valid_field_definition?(%{"key" => key, "type" => type, "required" => required})
+  defp valid_field_definition?(%{"key" => key, "type" => type, "required" => required} = field)
        when is_binary(key) and type in @field_types and is_boolean(required) do
-    String.match?(key, ~r/^[a-z_][a-z0-9_]*$/)
+    String.match?(key, ~r/^[a-z_][a-z0-9_]*$/) and
+      Enum.all?(Map.keys(field), &(&1 in @valid_field_map_keys))
   end
 
   defp valid_field_definition?(_), do: false

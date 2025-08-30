@@ -10,6 +10,8 @@ defmodule Bridge.Courses.Course do
   import Ecto.Changeset
 
   alias Bridge.Courses.{Lesson, VocabularyList, Card}
+  alias Bridge.Format.Slug
+  alias Bridge.Format.LanguageCode
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -52,15 +54,9 @@ defmodule Bridge.Courses.Course do
     |> validate_length(:slug, max: 70)
     |> validate_length(:taught_language_code, max: 5)
     |> validate_length(:instruction_language_code, max: 5)
-    |> validate_format(:slug, ~r/^[a-z0-9-]+$/,
-      message: "must only contain lowercase letters, numbers, and hyphens"
-    )
-    |> validate_format(:taught_language_code, ~r/^[a-z]{2,5}$/,
-      message: "must be a valid language code"
-    )
-    |> validate_format(:instruction_language_code, ~r/^[a-z]{2,5}$/,
-      message: "must be a valid language code"
-    )
+    |> Slug.validate()
+    |> LanguageCode.validate(:taught_language_code)
+    |> LanguageCode.validate(:instruction_language_code)
     |> unique_constraint(:slug)
   end
 
@@ -71,14 +67,5 @@ defmodule Bridge.Courses.Course do
     course
     |> changeset(attrs)
     |> put_change(:visible, false)
-  end
-
-  @doc """
-  Changeset for updating course visibility.
-  """
-  def visibility_changeset(course, attrs) do
-    course
-    |> cast(attrs, [:visible])
-    |> validate_required([:visible])
   end
 end

@@ -14,6 +14,8 @@ defmodule Bridge.Courses.TemplateMapping do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
+  @valid_mapping_map_keys ~w(key value)
+
   typed_schema "template_mappings" do
     field :use_case, :string
     field :mapping, {:array, :map}
@@ -61,9 +63,10 @@ defmodule Bridge.Courses.TemplateMapping do
     Enum.all?(mapping, &valid_mapping_definition?/1)
   end
 
-  defp valid_mapping_definition?(%{"key" => key, "value" => value})
+  defp valid_mapping_definition?(%{"key" => key, "value" => value} = map)
        when is_binary(key) and is_binary(value) do
-    String.match?(key, ~r/^[a-z_][a-z0-9_]*$/)
+    String.match?(key, ~r/^[a-z_][a-z0-9_]*$/) and
+      Enum.all?(Map.keys(map), &(&1 in @valid_mapping_map_keys))
   end
 
   defp valid_mapping_definition?(_), do: false
