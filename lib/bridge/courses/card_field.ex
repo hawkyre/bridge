@@ -52,7 +52,9 @@ defmodule Bridge.Courses.CardField do
     end
   end
 
-  defp valid_example?(%{"taught_language" => _, "instruction_language" => _}), do: true
+  defp valid_example?(%{"taught_language_example" => _, "instruction_language_example" => _}),
+    do: true
+
   defp valid_example?(_), do: false
 
   defp validate_url(value) do

@@ -36,7 +36,7 @@ defmodule Bridge.Courses.CardTest do
       card_template =
         insert(:card_template,
           fields: [
-            %{"key" => "examples", "type" => "examples"}
+            %{"key" => "examples", "type" => "examples", "name" => "Examples"}
           ]
         )
 
@@ -44,12 +44,12 @@ defmodule Bridge.Courses.CardTest do
         fields: %{
           "examples" => [
             %{
-              "taught_language" => "I am pablo",
-              "instruction_language" => "Yo soy pablo"
+              "taught_language_example" => "I am pablo",
+              "instruction_language_example" => "Yo soy pablo"
             },
             %{
-              "taught_language" => "I am not pablo",
-              "instruction_language" => "Yo no soy pablo"
+              "taught_language_example" => "I am not pablo",
+              "instruction_language_example" => "Yo no soy pablo"
             }
           ]
         },
