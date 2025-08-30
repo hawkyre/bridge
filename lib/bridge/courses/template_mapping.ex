@@ -36,6 +36,11 @@ defmodule Bridge.Courses.TemplateMapping do
     |> validate_mapping_structure()
   end
 
+  def create_changeset(attrs) do
+    %__MODULE__{}
+    |> changeset(attrs)
+  end
+
   @doc """
   Validates the mapping structure.
 

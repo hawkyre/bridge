@@ -32,6 +32,11 @@ defmodule Bridge.Courses.TemplateField do
     |> validate_metadata()
   end
 
+  def create_changeset(attrs) do
+    %__MODULE__{}
+    |> changeset(attrs)
+  end
+
   @spec validate_metadata(Ecto.Changeset.t()) :: Ecto.Changeset.t()
   defp validate_metadata(changeset) do
     case get_change(changeset, :type) do

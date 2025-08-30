@@ -20,7 +20,7 @@ defmodule Bridge.Courses.CardTemplateTest do
         ]
       }
 
-      changeset = CardTemplate.changeset(%CardTemplate{}, valid_attrs)
+      changeset = CardTemplate.create_changeset(valid_attrs)
 
       assert changeset.valid?
       assert get_change(changeset, :name) == "Translation Card"
@@ -28,7 +28,7 @@ defmodule Bridge.Courses.CardTemplateTest do
     end
 
     test "invalid changeset with missing required fields" do
-      changeset = CardTemplate.changeset(%CardTemplate{}, %{})
+      changeset = CardTemplate.create_changeset(%{})
 
       refute changeset.valid?
       assert "can't be blank" in errors_on(changeset).name
@@ -83,8 +83,7 @@ defmodule Bridge.Courses.CardTemplateTest do
 
       for field <- fields do
         changeset =
-          %CardTemplate{}
-          |> CardTemplate.changeset(%{name: "Test", fields: [field]})
+          CardTemplate.create_changeset(%{name: "Test", fields: [field]})
 
         assert changeset.valid?, "Field #{field["name"]} is not valid"
       end
@@ -92,8 +91,7 @@ defmodule Bridge.Courses.CardTemplateTest do
 
     test "rejects empty field list" do
       changeset =
-        %CardTemplate{}
-        |> CardTemplate.changeset(%{name: "Test", fields: []})
+        CardTemplate.create_changeset(%{name: "Test", fields: []})
 
       refute changeset.valid?
       assert "must have at least one field" in errors_on(changeset).fields

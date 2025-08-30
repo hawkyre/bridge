@@ -10,7 +10,7 @@ defmodule Bridge.Courses.TagTest do
         key: "verbs"
       }
 
-      changeset = Tag.changeset(%Tag{}, valid_attrs)
+      changeset = Tag.create_changeset(valid_attrs)
 
       assert changeset.valid?
       assert get_change(changeset, :key) == "verbs"
@@ -19,8 +19,8 @@ defmodule Bridge.Courses.TagTest do
     test "validates unique constraint on key" do
       attrs = %{key: "verbs"}
 
-      assert {:ok, _} = Tag.changeset(%Tag{}, attrs) |> Repo.insert()
-      assert {:error, changeset} = Tag.changeset(%Tag{}, attrs) |> Repo.insert()
+      assert {:ok, _} = Tag.create_changeset(attrs) |> Repo.insert()
+      assert {:error, changeset} = Tag.create_changeset(attrs) |> Repo.insert()
 
       assert "has already been taken" in errors_on(changeset).key
     end

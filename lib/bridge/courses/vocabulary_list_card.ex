@@ -30,4 +30,9 @@ defmodule Bridge.Courses.VocabularyListCard do
     |> foreign_key_constraint(:vocabulary_list_id)
     |> foreign_key_constraint(:card_id)
   end
+
+  def create_changeset(attrs) do
+    %__MODULE__{}
+    |> changeset(attrs)
+  end
 end

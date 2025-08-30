@@ -23,7 +23,7 @@ defmodule Bridge.Courses.TemplateMappingTest do
         card_template_id: card_template.id
       }
 
-      changeset = TemplateMapping.changeset(%TemplateMapping{}, attrs)
+      changeset = TemplateMapping.create_changeset(attrs)
 
       assert changeset.valid?
       assert get_change(changeset, :use_case) == "flashcard"
@@ -50,7 +50,7 @@ defmodule Bridge.Courses.TemplateMappingTest do
         card_template_id: card_template.id
       }
 
-      changeset = TemplateMapping.changeset(%TemplateMapping{}, attrs)
+      changeset = TemplateMapping.create_changeset(attrs)
 
       refute changeset.valid?
 
@@ -76,7 +76,7 @@ defmodule Bridge.Courses.TemplateMappingTest do
         card_template_id: card_template.id
       }
 
-      changeset = TemplateMapping.changeset(%TemplateMapping{}, attrs)
+      changeset = TemplateMapping.create_changeset(attrs)
 
       refute changeset.valid?
 
@@ -102,7 +102,7 @@ defmodule Bridge.Courses.TemplateMappingTest do
         card_template_id: card_template.id
       }
 
-      changeset = TemplateMapping.changeset(%TemplateMapping{}, attrs)
+      changeset = TemplateMapping.create_changeset(attrs)
 
       refute changeset.valid?
 
@@ -117,7 +117,7 @@ defmodule Bridge.Courses.TemplateMappingTest do
         card_template_id: Ecto.UUID.generate()
       }
 
-      changeset = TemplateMapping.changeset(%TemplateMapping{}, attrs)
+      changeset = TemplateMapping.create_changeset(attrs)
       assert changeset.valid?
 
       {:error, changeset} = Repo.insert(changeset)

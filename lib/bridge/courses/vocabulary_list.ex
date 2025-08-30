@@ -36,4 +36,9 @@ defmodule Bridge.Courses.VocabularyList do
     |> unique_constraint(:slug)
     |> foreign_key_constraint(:course_id)
   end
+
+  def create_changeset(attrs) do
+    %__MODULE__{}
+    |> changeset(attrs)
+  end
 end

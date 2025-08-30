@@ -20,7 +20,7 @@ defmodule Bridge.Courses.LessonTest do
         course_id: course.id
       }
 
-      changeset = Lesson.changeset(%Lesson{}, valid_attrs)
+      changeset = Lesson.create_changeset(valid_attrs)
 
       assert changeset.valid?
       assert get_change(changeset, :order) == 1
@@ -32,7 +32,7 @@ defmodule Bridge.Courses.LessonTest do
 
       assert get_change(changeset, :slug) == "introduction-spanish"
       assert get_change(changeset, :markdown_content) == "# Hello\n\nWelcome to Spanish!"
-      assert get_change(changeset, :visible) == true
+      refute get_change(changeset, :visible)
       assert get_change(changeset, :course_id) == course.id
     end
 
@@ -49,7 +49,7 @@ defmodule Bridge.Courses.LessonTest do
         course_id: course.id
       }
 
-      changeset = Lesson.changeset(%Lesson{}, valid_attrs)
+      changeset = Lesson.create_changeset(valid_attrs)
 
       assert changeset.valid?
       # visible defaults to false in schema
@@ -61,10 +61,10 @@ defmodule Bridge.Courses.LessonTest do
       attrs = params_for(:lesson, course_id: course.id)
 
       # Insert first lesson
-      %Lesson{} |> Lesson.changeset(attrs) |> Repo.insert!()
+      Lesson.create_changeset(attrs) |> Repo.insert!()
 
       # Try to insert second lesson with same course_id and slug
-      changeset = Lesson.changeset(%Lesson{}, attrs)
+      changeset = Lesson.create_changeset(attrs)
       {:error, changeset} = Repo.insert(changeset)
 
       assert "has already been taken" in errors_on(changeset).course_id
@@ -78,8 +78,8 @@ defmodule Bridge.Courses.LessonTest do
       attrs2 = params_for(:lesson, course_id: course2.id, slug: "intro")
 
       # Both should succeed
-      assert {:ok, _} = Lesson.changeset(%Lesson{}, attrs1) |> Repo.insert()
-      assert {:ok, _} = Lesson.changeset(%Lesson{}, attrs2) |> Repo.insert()
+      assert {:ok, _} = Lesson.create_changeset(attrs1) |> Repo.insert()
+      assert {:ok, _} = Lesson.create_changeset(attrs2) |> Repo.insert()
     end
   end
 
@@ -88,7 +88,7 @@ defmodule Bridge.Courses.LessonTest do
       course = insert(:course)
       attrs = params_for(:lesson, course_id: course.id, visible: true)
 
-      changeset = Lesson.create_changeset(%Lesson{}, attrs)
+      changeset = Lesson.create_changeset(attrs)
 
       assert changeset.valid?
       refute get_change(changeset, :visible)
@@ -98,7 +98,7 @@ defmodule Bridge.Courses.LessonTest do
       course = insert(:course)
       attrs = params_for(:lesson, course: course, visible: true)
 
-      changeset = Lesson.create_changeset(%Lesson{}, attrs)
+      changeset = Lesson.create_changeset(attrs)
 
       assert get_change(changeset, :visible) != true
     end

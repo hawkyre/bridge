@@ -14,7 +14,7 @@ defmodule Bridge.Courses.LessonTagTest do
         tag_id: lesson_tag.id
       }
 
-      changeset = LessonTag.changeset(%LessonTag{}, valid_attrs)
+      changeset = LessonTag.create_changeset(valid_attrs)
 
       assert changeset.valid?
       assert get_change(changeset, :lesson_id) == lesson.id
@@ -25,9 +25,9 @@ defmodule Bridge.Courses.LessonTagTest do
       {lesson, lesson_tag} = setup_lesson_and_tag()
       attrs = %{lesson_id: lesson.id, tag_id: lesson_tag.id}
 
-      LessonTag.changeset(%LessonTag{}, attrs) |> Repo.insert!()
+      LessonTag.create_changeset(attrs) |> Repo.insert!()
 
-      changeset = LessonTag.changeset(%LessonTag{}, attrs)
+      changeset = LessonTag.create_changeset(attrs)
       {:error, changeset} = Repo.insert(changeset)
 
       errors = errors_on(changeset)
@@ -45,8 +45,8 @@ defmodule Bridge.Courses.LessonTagTest do
       attrs1 = %{lesson_id: lesson.id, tag_id: tag1.id}
       attrs2 = %{lesson_id: lesson.id, tag_id: tag2.id}
 
-      assert {:ok, _} = LessonTag.changeset(%LessonTag{}, attrs1) |> Repo.insert()
-      assert {:ok, _} = LessonTag.changeset(%LessonTag{}, attrs2) |> Repo.insert()
+      assert {:ok, _} = LessonTag.create_changeset(attrs1) |> Repo.insert()
+      assert {:ok, _} = LessonTag.create_changeset(attrs2) |> Repo.insert()
     end
 
     test "allows same tag with different lessons" do
@@ -58,8 +58,8 @@ defmodule Bridge.Courses.LessonTagTest do
       attrs1 = %{lesson_id: lesson1.id, tag_id: tag.id}
       attrs2 = %{lesson_id: lesson2.id, tag_id: tag.id}
 
-      assert {:ok, _} = LessonTag.changeset(%LessonTag{}, attrs1) |> Repo.insert()
-      assert {:ok, _} = LessonTag.changeset(%LessonTag{}, attrs2) |> Repo.insert()
+      assert {:ok, _} = LessonTag.create_changeset(attrs1) |> Repo.insert()
+      assert {:ok, _} = LessonTag.create_changeset(attrs2) |> Repo.insert()
     end
 
     test "rejects same tag in the same lesson" do
@@ -69,8 +69,8 @@ defmodule Bridge.Courses.LessonTagTest do
 
       attrs = %{lesson_id: lesson1.id, tag_id: tag.id}
 
-      assert {:ok, _} = LessonTag.changeset(%LessonTag{}, attrs) |> Repo.insert()
-      assert {:error, changeset} = LessonTag.changeset(%LessonTag{}, attrs) |> Repo.insert()
+      assert {:ok, _} = LessonTag.create_changeset(attrs) |> Repo.insert()
+      assert {:error, changeset} = LessonTag.create_changeset(attrs) |> Repo.insert()
 
       assert "has already been taken" in errors_on(changeset).tag_id
     end
@@ -79,7 +79,7 @@ defmodule Bridge.Courses.LessonTagTest do
       {_lesson, lesson_tag} = setup_lesson_and_tag()
       attrs = %{lesson_id: Ecto.UUID.generate(), tag_id: lesson_tag.id}
 
-      changeset = LessonTag.changeset(%LessonTag{}, attrs)
+      changeset = LessonTag.create_changeset(attrs)
       assert changeset.valid?
 
       {:error, changeset} = Repo.insert(changeset)
@@ -90,7 +90,7 @@ defmodule Bridge.Courses.LessonTagTest do
       {lesson, _lesson_tag} = setup_lesson_and_tag()
       attrs = %{lesson_id: lesson.id, tag_id: Ecto.UUID.generate()}
 
-      changeset = LessonTag.changeset(%LessonTag{}, attrs)
+      changeset = LessonTag.create_changeset(attrs)
       assert changeset.valid?
 
       {:error, changeset} = Repo.insert(changeset)

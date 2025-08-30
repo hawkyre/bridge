@@ -23,7 +23,7 @@ defmodule Bridge.Courses.CardTest do
         card_template_id: card_template.id
       }
 
-      changeset = Card.changeset(%Card{}, attrs)
+      changeset = Card.create_changeset(attrs)
 
       assert changeset.valid?
       assert get_change(changeset, :fields) == %{"word" => "hello", "translation" => "hola"}
@@ -58,7 +58,7 @@ defmodule Bridge.Courses.CardTest do
         card_template_id: card_template.id
       }
 
-      changeset = Card.changeset(%Card{}, attrs)
+      changeset = Card.create_changeset(attrs)
 
       assert changeset.valid?
     end
@@ -95,7 +95,7 @@ defmodule Bridge.Courses.CardTest do
           card_template_id: card_template.id
         }
 
-        refute Card.changeset(%Card{}, attrs).valid?
+        refute Card.create_changeset(attrs).valid?
       end
     end
 
@@ -119,7 +119,7 @@ defmodule Bridge.Courses.CardTest do
         card_template_id: card_template.id
       }
 
-      changeset = Card.changeset(%Card{}, attrs)
+      changeset = Card.create_changeset(attrs)
 
       assert changeset.valid?
     end
@@ -144,7 +144,7 @@ defmodule Bridge.Courses.CardTest do
         card_template_id: card_template.id
       }
 
-      changeset = Card.changeset(%Card{}, attrs)
+      changeset = Card.create_changeset(attrs)
 
       refute changeset.valid?
       assert "must be a map of valid field values" in errors_on(changeset).fields
@@ -170,7 +170,7 @@ defmodule Bridge.Courses.CardTest do
         card_template_id: card_template.id
       }
 
-      changeset = Card.changeset(%Card{}, attrs)
+      changeset = Card.create_changeset(attrs)
 
       assert changeset.valid?
     end
@@ -195,7 +195,7 @@ defmodule Bridge.Courses.CardTest do
         card_template_id: card_template.id
       }
 
-      changeset = Card.changeset(%Card{}, attrs)
+      changeset = Card.create_changeset(attrs)
 
       refute changeset.valid?
       assert "must be a map of valid field values" in errors_on(changeset).fields
@@ -217,7 +217,7 @@ defmodule Bridge.Courses.CardTest do
         card_template_id: card_template.id
       }
 
-      changeset = Card.changeset(%Card{}, attrs)
+      changeset = Card.create_changeset(attrs)
 
       assert changeset.valid?
     end
@@ -238,7 +238,7 @@ defmodule Bridge.Courses.CardTest do
         card_template_id: card_template.id
       }
 
-      changeset = Card.changeset(%Card{}, attrs)
+      changeset = Card.create_changeset(attrs)
 
       refute changeset.valid?
       assert "must be a map of valid field values" in errors_on(changeset).fields

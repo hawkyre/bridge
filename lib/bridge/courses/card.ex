@@ -36,6 +36,11 @@ defmodule Bridge.Courses.Card do
     |> foreign_key_constraint(:card_template_id)
   end
 
+  def create_changeset(attrs) do
+    %__MODULE__{}
+    |> changeset(attrs)
+  end
+
   defp validate_fields_structure(changeset) do
     card_template_id = get_field(changeset, :card_template_id)
     card_template = Repo.get(CardTemplate, card_template_id)

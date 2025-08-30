@@ -13,7 +13,7 @@ defmodule Bridge.Courses.VocabularyListCardTest do
         card_id: card.id
       }
 
-      changeset = VocabularyListCard.changeset(%VocabularyListCard{}, valid_attrs)
+      changeset = VocabularyListCard.create_changeset(valid_attrs)
 
       assert changeset.valid?
       assert get_change(changeset, :vocabulary_list_id) == vocabulary_list.id
@@ -25,10 +25,10 @@ defmodule Bridge.Courses.VocabularyListCardTest do
       attrs = %{vocabulary_list_id: vocabulary_list.id, card_id: card.id}
 
       # Insert first association
-      VocabularyListCard.changeset(%VocabularyListCard{}, attrs) |> Repo.insert!()
+      VocabularyListCard.create_changeset(attrs) |> Repo.insert!()
 
       # Try to insert duplicate association
-      changeset = VocabularyListCard.changeset(%VocabularyListCard{}, attrs)
+      changeset = VocabularyListCard.create_changeset(attrs)
       {:error, changeset} = Repo.insert(changeset)
 
       # The error message might be on either field depending on the constraint name
@@ -58,10 +58,10 @@ defmodule Bridge.Courses.VocabularyListCardTest do
 
       # Both should succeed
       assert {:ok, _} =
-               VocabularyListCard.changeset(%VocabularyListCard{}, attrs1) |> Repo.insert()
+               VocabularyListCard.create_changeset(attrs1) |> Repo.insert()
 
       assert {:ok, _} =
-               VocabularyListCard.changeset(%VocabularyListCard{}, attrs2) |> Repo.insert()
+               VocabularyListCard.create_changeset(attrs2) |> Repo.insert()
     end
 
     test "allows same card with different vocabulary_lists" do
@@ -78,17 +78,17 @@ defmodule Bridge.Courses.VocabularyListCardTest do
 
       # Both should succeed
       assert {:ok, _} =
-               VocabularyListCard.changeset(%VocabularyListCard{}, attrs1) |> Repo.insert()
+               VocabularyListCard.create_changeset(attrs1) |> Repo.insert()
 
       assert {:ok, _} =
-               VocabularyListCard.changeset(%VocabularyListCard{}, attrs2) |> Repo.insert()
+               VocabularyListCard.create_changeset(attrs2) |> Repo.insert()
     end
 
     test "validates foreign key constraint for vocabulary_list_id" do
       {_vocabulary_list, card} = setup_vocabulary_list_and_card()
       attrs = %{vocabulary_list_id: Ecto.UUID.generate(), card_id: card.id}
 
-      changeset = VocabularyListCard.changeset(%VocabularyListCard{}, attrs)
+      changeset = VocabularyListCard.create_changeset(attrs)
       assert changeset.valid?
 
       {:error, changeset} = Repo.insert(changeset)
@@ -99,7 +99,7 @@ defmodule Bridge.Courses.VocabularyListCardTest do
       {vocabulary_list, _card} = setup_vocabulary_list_and_card()
       attrs = %{vocabulary_list_id: vocabulary_list.id, card_id: Ecto.UUID.generate()}
 
-      changeset = VocabularyListCard.changeset(%VocabularyListCard{}, attrs)
+      changeset = VocabularyListCard.create_changeset(attrs)
       assert changeset.valid?
 
       {:error, changeset} = Repo.insert(changeset)

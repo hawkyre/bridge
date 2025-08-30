@@ -65,8 +65,8 @@ defmodule Bridge.Courses.Lesson do
   @doc """
   Changeset for creating a lesson with default visibility set to false.
   """
-  def create_changeset(lesson, attrs) do
-    lesson
+  def create_changeset(attrs) do
+    %__MODULE__{}
     |> changeset(attrs)
     |> put_change(:visible, false)
   end

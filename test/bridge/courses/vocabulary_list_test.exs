@@ -14,7 +14,7 @@ defmodule Bridge.Courses.VocabularyListTest do
         course_id: course.id
       }
 
-      changeset = VocabularyList.changeset(%VocabularyList{}, valid_attrs)
+      changeset = VocabularyList.create_changeset(valid_attrs)
 
       assert changeset.valid?
       assert get_change(changeset, :name) == "Basic Spanish Words"
@@ -23,7 +23,7 @@ defmodule Bridge.Courses.VocabularyListTest do
     end
 
     test "invalid changeset with missing required fields" do
-      changeset = VocabularyList.changeset(%VocabularyList{}, %{})
+      changeset = VocabularyList.create_changeset(%{})
 
       refute changeset.valid?
       assert "can't be blank" in errors_on(changeset).name
@@ -41,7 +41,7 @@ defmodule Bridge.Courses.VocabularyListTest do
       }
 
       # Insert first vocabulary list
-      VocabularyList.changeset(%VocabularyList{}, attrs) |> Repo.insert!()
+      VocabularyList.create_changeset(attrs) |> Repo.insert!()
 
       # Try to insert second vocabulary list with same slug
       duplicate_attrs = %{
@@ -51,7 +51,7 @@ defmodule Bridge.Courses.VocabularyListTest do
         course_id: course.id
       }
 
-      changeset = VocabularyList.changeset(%VocabularyList{}, duplicate_attrs)
+      changeset = VocabularyList.create_changeset(duplicate_attrs)
       {:error, changeset} = Repo.insert(changeset)
 
       assert "has already been taken" in errors_on(changeset).slug
@@ -64,7 +64,7 @@ defmodule Bridge.Courses.VocabularyListTest do
         course_id: Ecto.UUID.generate()
       }
 
-      changeset = VocabularyList.changeset(%VocabularyList{}, attrs)
+      changeset = VocabularyList.create_changeset(attrs)
       assert changeset.valid?
 
       {:error, changeset} = Repo.insert(changeset)

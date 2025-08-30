@@ -35,4 +35,9 @@ defmodule Bridge.Courses.TagTranslation do
     |> unique_constraint([:tag_id, :language_code])
     |> foreign_key_constraint(:tag_id)
   end
+
+  def create_changeset(attrs) do
+    %__MODULE__{}
+    |> changeset(attrs)
+  end
 end

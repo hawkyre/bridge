@@ -32,4 +32,9 @@ defmodule Bridge.Courses.Tag do
     )
     |> unique_constraint(:key)
   end
+
+  def create_changeset(attrs) do
+    %__MODULE__{}
+    |> changeset(attrs)
+  end
 end
