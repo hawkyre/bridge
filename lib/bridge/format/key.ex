@@ -34,6 +34,6 @@ defmodule Bridge.Format.Key do
   end
 
   def regex(:regex) do
-    ~r/[a-z][a-z0-9]*(_[a-z0-9])*/
+    ~r/^[a-z][a-z0-9]*(_[a-z0-9]+)*$/
   end
 end
