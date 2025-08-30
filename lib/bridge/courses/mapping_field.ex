@@ -19,6 +19,12 @@ defmodule Bridge.Courses.MappingField do
     field :type, :string
   end
 
+  @spec create_changeset(map(), CardTemplate.t() | nil) :: Ecto.Changeset.t()
+  def create_changeset(attrs, template) do
+    %__MODULE__{}
+    |> changeset(attrs, template)
+  end
+
   @doc false
   @spec changeset(t(), map(), CardTemplate.t() | nil) :: Ecto.Changeset.t()
   def changeset(mapping_field, attrs, template) do
@@ -43,6 +49,8 @@ defmodule Bridge.Courses.MappingField do
 
       value ->
         captures = Regex.scan(value_regex(), value)
+
+        dbg()
 
         cond do
           captures == [] ->

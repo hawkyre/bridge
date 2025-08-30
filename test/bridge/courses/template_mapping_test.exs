@@ -8,16 +8,16 @@ defmodule Bridge.Courses.TemplateMappingTest do
       card_template =
         insert(:card_template,
           fields: [
-            %{"key" => "word", "type" => "short_text"},
-            %{"key" => "translation", "type" => "short_text"},
-            %{"key" => "example", "type" => "examples"}
+            %{"key" => "word", "type" => "short_text", "name" => "Word"},
+            %{"key" => "translation", "type" => "short_text", "name" => "Translation"},
+            %{"key" => "example", "type" => "examples", "name" => "Example"}
           ]
         )
 
       attrs = %{
         use_case: "flashcard",
         mapping: [
-          %{"key" => "front", "value" => "{{word}}", "type" => "text"},
+          %{"key" => "front", "value" => "word: {{word}}", "type" => "text"},
           %{"key" => "back", "value" => "{{translation}} - {{example}}", "type" => "text"}
         ],
         card_template_id: card_template.id
@@ -35,9 +35,9 @@ defmodule Bridge.Courses.TemplateMappingTest do
       card_template =
         insert(:card_template,
           fields: [
-            %{"key" => "word", "type" => "short_text"},
-            %{"key" => "translation", "type" => "short_text"},
-            %{"key" => "example", "type" => "examples"}
+            %{"key" => "word", "type" => "short_text", "name" => "Word"},
+            %{"key" => "translation", "type" => "short_text", "name" => "Translation"},
+            %{"key" => "example", "type" => "examples", "name" => "Example"}
           ]
         )
 
@@ -62,9 +62,9 @@ defmodule Bridge.Courses.TemplateMappingTest do
       card_template =
         insert(:card_template,
           fields: [
-            %{"key" => "word", "type" => "short_text"},
-            %{"key" => "translation", "type" => "short_text"},
-            %{"key" => "example", "type" => "examples"}
+            %{"key" => "word", "type" => "short_text", "name" => "Word"},
+            %{"key" => "translation", "type" => "short_text", "name" => "Translation"},
+            %{"key" => "example", "type" => "examples", "name" => "Example"}
           ]
         )
 
@@ -88,9 +88,9 @@ defmodule Bridge.Courses.TemplateMappingTest do
       card_template =
         insert(:card_template,
           fields: [
-            %{"key" => "word", "type" => "short_text"},
-            %{"key" => "translation", "type" => "short_text"},
-            %{"key" => "example", "type" => "examples"}
+            %{"key" => "word", "type" => "short_text", "name" => "Word"},
+            %{"key" => "translation", "type" => "short_text", "name" => "Translation"},
+            %{"key" => "example", "type" => "examples", "name" => "Example"}
           ]
         )
 
