@@ -1,5 +1,4 @@
 defmodule Bridge.Courses.CardTest do
-  # REVIEWED - NEED TO ADD TESTS FOR THE FIELDS
   use Bridge.DataCase, async: true
 
   alias Bridge.Courses.Card

@@ -21,6 +21,7 @@ defmodule Bridge.Courses do
       [%Course{}, ...]
 
   """
+  @spec list_courses :: [Course.t()]
   def list_courses do
     Repo.all(Course)
   end

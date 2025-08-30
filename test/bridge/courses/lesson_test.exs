@@ -1,5 +1,4 @@
 defmodule Bridge.Courses.LessonTest do
-  # REVIEWED
   use Bridge.DataCase, async: true
 
   alias Bridge.Courses.{Lesson, Course}
