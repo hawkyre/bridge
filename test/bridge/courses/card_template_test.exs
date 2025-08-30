@@ -9,9 +9,14 @@ defmodule Bridge.Courses.CardTemplateTest do
       valid_attrs = %{
         name: "Translation Card",
         fields: [
-          %{"key" => "word", "type" => "short_text", "required" => true},
-          %{"key" => "translation", "type" => "short_text", "required" => false},
-          %{"key" => "audio", "type" => "audio_url", "required" => false}
+          %{"key" => "word", "name" => "Word", "type" => "short_text", "required" => true},
+          %{
+            "key" => "translation",
+            "name" => "Translation",
+            "type" => "short_text",
+            "required" => false
+          },
+          %{"key" => "audio", "name" => "Audio", "type" => "audio_url", "required" => false}
         ]
       }
 
@@ -34,23 +39,46 @@ defmodule Bridge.Courses.CardTemplateTest do
   describe "validate_template_fields/1" do
     test "accepts valid field definitions" do
       fields = [
-        %{"key" => "word", "type" => "short_text", "required" => true},
-        %{"key" => "translation", "type" => "long_text", "required" => false},
-        %{"key" => "audio_file", "type" => "audio_url", "required" => false},
-        %{"key" => "image_file", "type" => "image_url", "required" => false},
+        %{"key" => "word", "name" => "Word", "type" => "short_text", "required" => true},
+        %{
+          "key" => "translation",
+          "name" => "Translation",
+          "type" => "long_text",
+          "required" => false
+        },
+        %{
+          "key" => "audio_file",
+          "name" => "Audio File",
+          "type" => "audio_url",
+          "required" => false
+        },
+        %{
+          "key" => "image_file",
+          "name" => "Image File",
+          "type" => "image_url",
+          "required" => false
+        },
+        %{
+          "key" => "image_file",
+          "name" => "Image File",
+          "type" => "image_url",
+          "required" => false
+        },
         %{
           "key" => "single_choice",
+          "name" => "Single Choice",
           "type" => "single_choice",
           "required" => true,
           "metadata" => %{"choices" => ["choice1", "choice2"]}
         },
         %{
           "key" => "multiple_choice",
+          "name" => "Multiple Choice",
           "type" => "multiple_choice",
           "required" => false,
           "metadata" => %{"choices" => ["choice1", "choice2"]}
         },
-        %{"key" => "examples", "type" => "examples", "required" => false}
+        %{"key" => "examples", "name" => "Examples", "type" => "examples", "required" => false}
       ]
 
       for field <- fields do
@@ -58,7 +86,7 @@ defmodule Bridge.Courses.CardTemplateTest do
           %CardTemplate{}
           |> CardTemplate.changeset(%{name: "Test", fields: [field]})
 
-        assert changeset.valid?, "Field #{field["key"]} is not valid"
+        assert changeset.valid?, "Field #{field["name"]} is not valid"
       end
     end
 
@@ -73,7 +101,7 @@ defmodule Bridge.Courses.CardTemplateTest do
 
     test "rejects fields with invalid structure - missing key" do
       fields = [
-        %{"type" => "short_text", "required" => true}
+        %{"name" => "Word", "type" => "short_text", "required" => true}
       ]
 
       changeset = CardTemplate.create_changeset(params_for(:card_template, fields: fields))
@@ -84,7 +112,7 @@ defmodule Bridge.Courses.CardTemplateTest do
 
     test "rejects fields with invalid type" do
       fields = [
-        %{"key" => "word", "type" => "invalid_type", "required" => true}
+        %{"key" => "word", "name" => "Word", "type" => "invalid_type", "required" => true}
       ]
 
       changeset = CardTemplate.create_changeset(params_for(:card_template, fields: fields))
