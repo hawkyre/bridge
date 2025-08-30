@@ -50,8 +50,6 @@ defmodule Bridge.Courses.MappingField do
       value ->
         captures = Regex.scan(value_regex(), value)
 
-        dbg()
-
         cond do
           captures == [] ->
             add_error(changeset, :value, "must contain at least one template field key")

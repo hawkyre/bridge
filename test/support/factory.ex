@@ -10,13 +10,13 @@ defmodule Bridge.Factory do
   use ExMachina.Ecto, repo: Bridge.Repo
 
   alias Bridge.Courses.{
+    Card,
     Course,
     Lesson,
     Tag,
     LessonTag,
     TagTranslation,
     CardTemplate,
-    Card,
     TemplateMapping,
     VocabularyList,
     VocabularyListCard
@@ -83,8 +83,7 @@ defmodule Bridge.Factory do
       topic
       |> String.replace("-", " ")
       |> String.split()
-      |> Enum.map(&String.capitalize/1)
-      |> Enum.join(" ")
+      |> Enum.map_join(" ", &String.capitalize/1)
 
     slug = "#{topic}-#{order}"
 
@@ -276,8 +275,7 @@ defmodule Bridge.Factory do
       topic
       |> String.replace("-", " ")
       |> String.split()
-      |> Enum.map(&String.capitalize/1)
-      |> Enum.join(" ")
+      |> Enum.map_join(" ", &String.capitalize/1)
 
     slug = "#{topic}-#{Enum.random(1..999)}"
 
@@ -347,9 +345,11 @@ defmodule Bridge.Factory do
         _ -> ["concept 1", "concept 2", "concept 3"]
       end
 
-    concepts
-    |> Enum.map(&"- **#{String.capitalize(&1)}**: #{Faker.Lorem.sentence(3..8)}")
-    |> Enum.join("\n")
+    Enum.map_join(
+      concepts,
+      "\n",
+      &"- **#{String.capitalize(&1)}**: #{Faker.Lorem.sentence(3..8)}"
+    )
   end
 
   defp generate_examples(topic) do

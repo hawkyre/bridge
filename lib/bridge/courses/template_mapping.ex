@@ -64,8 +64,6 @@ defmodule Bridge.Courses.TemplateMapping do
             &(MappingField.create_changeset(&1, template) |> apply_action(:validate))
           )
 
-        IO.inspect(validated_mappings)
-
         if Enum.all?(validated_mappings, &match?({:ok, _}, &1)) do
           changeset
         else
