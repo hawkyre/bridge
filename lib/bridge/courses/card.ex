@@ -10,7 +10,8 @@ defmodule Bridge.Courses.Card do
   use TypedEctoSchema
   import Ecto.Changeset
 
-  alias Bridge.Courses.{Course, CardTemplate, VocabularyList}
+  alias Bridge.Repo
+  alias Bridge.Courses.{Course, CardTemplate, VocabularyList, CardField}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -35,25 +36,28 @@ defmodule Bridge.Courses.Card do
     |> foreign_key_constraint(:card_template_id)
   end
 
-  @doc """
-  Validates that the card fields conform to the template structure.
-
-  This validation checks that:
-  - All required template fields are present
-  - No unknown fields are included
-  - Field values match expected types
-  """
   defp validate_fields_structure(changeset) do
+    card_template_id = get_field(changeset, :card_template_id)
+    card_template = Repo.get(CardTemplate, card_template_id)
+
     case get_field(changeset, :fields) do
       nil ->
         changeset
 
       fields when is_map(fields) ->
-        # TODO - validate fields against template
-        changeset
+        valid_fields? =
+          fields
+          |> Enum.map(&CardField.validate(&1, card_template))
+          |> Enum.all?(&match?(:ok, &1))
+
+        if valid_fields? do
+          changeset
+        else
+          add_error(changeset, :fields, "must be a map of valid field values")
+        end
 
       _invalid ->
-        add_error(changeset, :fields, "must be a map of field values")
+        add_error(changeset, :fields, "must be a map of valid field values")
     end
   end
 end

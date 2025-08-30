@@ -9,12 +9,12 @@ defmodule Bridge.Courses.TemplateMapping do
   use TypedEctoSchema
   import Ecto.Changeset
 
+  alias Bridge.Repo
   alias Bridge.Courses.CardTemplate
+  alias Bridge.Courses.MappingField
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-
-  @valid_mapping_map_keys ~w(key value)
 
   typed_schema "template_mappings" do
     field :use_case, :string
@@ -26,13 +26,14 @@ defmodule Bridge.Courses.TemplateMapping do
   end
 
   @doc false
+  @spec changeset(t(), map()) :: Ecto.Changeset.t()
   def changeset(template_mapping, attrs) do
     template_mapping
     |> cast(attrs, [:use_case, :mapping, :card_template_id])
     |> validate_required([:use_case, :mapping, :card_template_id])
     |> validate_length(:use_case, max: 50)
-    |> validate_mapping_structure()
     |> foreign_key_constraint(:card_template_id)
+    |> validate_mapping_structure()
   end
 
   @doc """
@@ -42,13 +43,23 @@ defmodule Bridge.Courses.TemplateMapping do
   - key: string identifier
   - value: template string that can reference template fields
   """
+  @spec validate_mapping_structure(Ecto.Changeset.t()) :: Ecto.Changeset.t()
   def validate_mapping_structure(changeset) do
+    template_id = get_field(changeset, :card_template_id)
+    template = Repo.get(CardTemplate, template_id)
+
     case get_field(changeset, :mapping) do
       nil ->
         changeset
 
       mapping when is_list(mapping) ->
-        if valid_mapping_structure?(mapping) do
+        validated_mappings =
+          Enum.map(
+            mapping,
+            &(MappingField.changeset(%MappingField{}, &1, template) |> apply_action(:validate))
+          )
+
+        if Enum.all?(validated_mappings, &match?({:ok, _}, &1)) do
           changeset
         else
           add_error(changeset, :mapping, "invalid mapping structure")
@@ -58,16 +69,4 @@ defmodule Bridge.Courses.TemplateMapping do
         add_error(changeset, :mapping, "must be a list of mapping definitions")
     end
   end
-
-  defp valid_mapping_structure?(mapping) when is_list(mapping) do
-    Enum.all?(mapping, &valid_mapping_definition?/1)
-  end
-
-  defp valid_mapping_definition?(%{"key" => key, "value" => value} = map)
-       when is_binary(key) and is_binary(value) do
-    String.match?(key, ~r/^[a-z_][a-z0-9_]*$/) and
-      Enum.all?(Map.keys(map), &(&1 in @valid_mapping_map_keys))
-  end
-
-  defp valid_mapping_definition?(_), do: false
 end

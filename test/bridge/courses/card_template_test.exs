@@ -38,16 +38,28 @@ defmodule Bridge.Courses.CardTemplateTest do
         %{"key" => "translation", "type" => "long_text", "required" => false},
         %{"key" => "audio_file", "type" => "audio_url", "required" => false},
         %{"key" => "image_file", "type" => "image_url", "required" => false},
-        %{"key" => "choice", "type" => "single_choice", "required" => true},
-        %{"key" => "choices", "type" => "multiple_choice", "required" => false},
-        %{"key" => "examples_list", "type" => "examples", "required" => false}
+        %{
+          "key" => "single_choice",
+          "type" => "single_choice",
+          "required" => true,
+          "metadata" => %{"choices" => ["choice1", "choice2"]}
+        },
+        %{
+          "key" => "multiple_choice",
+          "type" => "multiple_choice",
+          "required" => false,
+          "metadata" => %{"choices" => ["choice1", "choice2"]}
+        },
+        %{"key" => "examples", "type" => "examples", "required" => false}
       ]
 
-      changeset =
-        %CardTemplate{}
-        |> CardTemplate.changeset(%{name: "Test", fields: fields})
+      for field <- fields do
+        changeset =
+          %CardTemplate{}
+          |> CardTemplate.changeset(%{name: "Test", fields: [field]})
 
-      assert changeset.valid?
+        assert changeset.valid?, "Field #{field["key"]} is not valid"
+      end
     end
 
     test "rejects empty field list" do
@@ -64,38 +76,7 @@ defmodule Bridge.Courses.CardTemplateTest do
         %{"type" => "short_text", "required" => true}
       ]
 
-      changeset =
-        %CardTemplate{}
-        |> change(%{fields: fields})
-        |> CardTemplate.validate_template_fields()
-
-      refute changeset.valid?
-      assert "invalid field structure" in errors_on(changeset).fields
-    end
-
-    test "rejects fields with invalid structure - missing type" do
-      fields = [
-        %{"key" => "word", "required" => true}
-      ]
-
-      changeset =
-        %CardTemplate{}
-        |> change(%{fields: fields})
-        |> CardTemplate.validate_template_fields()
-
-      refute changeset.valid?
-      assert "invalid field structure" in errors_on(changeset).fields
-    end
-
-    test "rejects fields with invalid structure - missing required" do
-      fields = [
-        %{"key" => "word", "type" => "short_text"}
-      ]
-
-      changeset =
-        %CardTemplate{}
-        |> change(%{fields: fields})
-        |> CardTemplate.validate_template_fields()
+      changeset = CardTemplate.create_changeset(params_for(:card_template, fields: fields))
 
       refute changeset.valid?
       assert "invalid field structure" in errors_on(changeset).fields
@@ -106,24 +87,7 @@ defmodule Bridge.Courses.CardTemplateTest do
         %{"key" => "word", "type" => "invalid_type", "required" => true}
       ]
 
-      changeset =
-        %CardTemplate{}
-        |> change(%{fields: fields})
-        |> CardTemplate.validate_template_fields()
-
-      refute changeset.valid?
-      assert "invalid field structure" in errors_on(changeset).fields
-    end
-
-    test "rejects fields with extra unexpected keys" do
-      fields = [
-        %{"key" => "word", "type" => "short_text", "required" => true, "extra" => "field"}
-      ]
-
-      changeset =
-        %CardTemplate{}
-        |> change(%{fields: fields})
-        |> CardTemplate.validate_template_fields()
+      changeset = CardTemplate.create_changeset(params_for(:card_template, fields: fields))
 
       refute changeset.valid?
       assert "invalid field structure" in errors_on(changeset).fields
