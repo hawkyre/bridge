@@ -2,6 +2,9 @@ console:
 	@docker exec -it bridge sh -c 'echo "Application.put_env(:elixir, :ansi_enabled, :true)" > ~/.iex.exs'
 	@docker exec -it bridge sh -c 'iex --erl "-kernel shell_history enabled" --cookie bridge --remsh bridge@$$(hostname)'
 
+db:
+	@docker exec -it bridge-db psql -U postgres -d bridge_dev
+
 x:
 	@docker exec bridge $(filter-out $@,$(MAKECMDGOALS))
 
