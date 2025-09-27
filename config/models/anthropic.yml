@@ -1,0 +1,265 @@
+provider: anthropic
+models:
+  claude-instant-1:
+    context_window: 100000
+    max_output_tokens: 8191
+    pricing:
+      input: 1.63
+      output: 5.51
+    capabilities:
+      - streaming
+  claude-instant-1.2:
+    context_window: 100000
+    max_output_tokens: 8191
+    pricing:
+      input: 0.163
+      output: 0.551
+    capabilities:
+      - streaming
+      - tool_choice
+  claude-2:
+    context_window: 100000
+    max_output_tokens: 8191
+    pricing:
+      input: 8.0
+      output: 24.0
+    capabilities:
+      - streaming
+  claude-2.1:
+    context_window: 200000
+    max_output_tokens: 8191
+    pricing:
+      input: 8.0
+      output: 24.0
+    capabilities:
+      - streaming
+      - tool_choice
+  claude-3-haiku-20240307:
+    context_window: 200000
+    max_output_tokens: 4096
+    pricing:
+      input: 0.25
+      output: 1.25
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - tool_choice
+    deprecation_date: '2025-03-01'
+  claude-3-5-haiku-20241022:
+    context_window: 200000
+    max_output_tokens: 8192
+    pricing:
+      input: 0.8
+      output: 4.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - web_search
+      - pdf_input
+      - tool_choice
+    deprecation_date: '2025-10-01'
+  claude-3-5-haiku-latest:
+    context_window: 200000
+    max_output_tokens: 8192
+    pricing:
+      input: 1.0
+      output: 5.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - web_search
+      - pdf_input
+      - tool_choice
+    deprecation_date: '2025-10-01'
+  claude-3-opus-latest:
+    context_window: 200000
+    max_output_tokens: 4096
+    pricing:
+      input: 15.0
+      output: 75.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - tool_choice
+    deprecation_date: '2025-03-01'
+  claude-3-opus-20240229:
+    context_window: 200000
+    max_output_tokens: 4096
+    pricing:
+      input: 15.0
+      output: 75.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - tool_choice
+    deprecation_date: '2025-03-01'
+  claude-3-sonnet-20240229:
+    context_window: 200000
+    max_output_tokens: 4096
+    pricing:
+      input: 3.0
+      output: 15.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - tool_choice
+    deprecation_date: '2025-07-21'
+  claude-3-5-sonnet-latest:
+    context_window: 200000
+    max_output_tokens: 8192
+    pricing:
+      input: 3.0
+      output: 15.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - web_search
+      - pdf_input
+      - tool_choice
+    deprecation_date: '2025-06-01'
+  claude-3-5-sonnet-20240620:
+    context_window: 200000
+    max_output_tokens: 8192
+    pricing:
+      input: 3.0
+      output: 15.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - pdf_input
+      - tool_choice
+    deprecation_date: '2025-06-01'
+  claude-opus-4-20250514:
+    context_window: 200000
+    max_output_tokens: 32000
+    pricing:
+      input: 15.0
+      output: 75.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - reasoning
+      - pdf_input
+      - tool_choice
+  claude-sonnet-4-20250514:
+    context_window: 200000
+    max_output_tokens: 64000
+    pricing:
+      input: 3.0
+      output: 15.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - reasoning
+      - pdf_input
+      - tool_choice
+  claude-4-opus-20250514:
+    context_window: 200000
+    max_output_tokens: 32000
+    pricing:
+      input: 15.0
+      output: 75.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - reasoning
+      - pdf_input
+      - tool_choice
+  claude-4-sonnet-20250514:
+    context_window: 200000
+    max_output_tokens: 64000
+    pricing:
+      input: 3.0
+      output: 15.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - reasoning
+      - pdf_input
+      - tool_choice
+  claude-3-7-sonnet-latest:
+    context_window: 200000
+    max_output_tokens: 128000
+    pricing:
+      input: 3.0
+      output: 15.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - reasoning
+      - pdf_input
+      - tool_choice
+    deprecation_date: '2025-06-01'
+  claude-3-7-sonnet-20250219:
+    context_window: 200000
+    max_output_tokens: 128000
+    pricing:
+      input: 3.0
+      output: 15.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - reasoning
+      - web_search
+      - pdf_input
+      - tool_choice
+    deprecation_date: '2026-02-01'
+  claude-3-5-sonnet-20241022:
+    context_window: 200000
+    max_output_tokens: 8192
+    pricing:
+      input: 3.0
+      output: 15.0
+    capabilities:
+      - streaming
+      - function_calling
+      - vision
+      - prompt_caching
+      - structured_output
+      - web_search
+      - pdf_input
+      - tool_choice
+    deprecation_date: '2025-10-01'
+default_model: claude-4-sonnet-20250514

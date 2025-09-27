@@ -55,6 +55,7 @@ defmodule Bridge.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       {:typed_ecto_schema, "~> 0.4"},
+      {:ex_llm, github: "hawkyre/ex_llm", branch: "v0.8.1-no-bumblebee"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.14", only: [:dev, :test], runtime: false}
