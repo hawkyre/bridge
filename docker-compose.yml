@@ -13,7 +13,7 @@ services:
       POSTGRES_DB: bridge_dev
       POSTGRES_HOST_AUTH_METHOD: trust
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres -p 5432']
+      test: ["CMD-SHELL", "pg_isready -U postgres -p 5432"]
       interval: 5s
       timeout: 15s
       retries: 10
@@ -24,16 +24,19 @@ services:
       context: .
       dockerfile: dev/Dockerfile
     container_name: bridge
+    command: elixir --sname bridge --cookie bridge -S mix phx.server
     environment:
-      - MIX_ENV=dev
-      - DOCKER_ENV=true
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=postgres
-      - DB_HOSTNAME=bridge-db
-      - DB_NAME=bridge_dev
-      - SECRET_KEY_BASE=EQA3xehC005QINEHtjCGC5zTLwh031/Kl3MhD/kXBNOyJzrcKbEpraRcarSybTww
+      MIX_ENV: dev
+      DOCKER_ENV: true
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_HOSTNAME: bridge-db
+      DB_NAME: bridge_dev
+      SECRET_KEY_BASE: EQA3xehC005QINEHtjCGC5zTLwh031/Kl3MhD/kXBNOyJzrcKbEpraRcarSybTww
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
     ports:
-      - '4000:4000'
+      - "4000:4000"
     volumes:
       - .:/app
       - /app/deps
@@ -41,14 +44,6 @@ services:
     depends_on:
       bridge-db:
         condition: service_healthy
-    command: >
-      sh -c "
-        mix deps.get &&
-        mix ecto.setup &&
-        mix assets.setup &&
-        mix assets.build &&
-        mix phx.server
-      "
     stdin_open: true
     tty: true
 

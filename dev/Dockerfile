@@ -37,6 +37,3 @@ RUN mix compile
 
 # Expose the port the app runs on
 EXPOSE 4000
-
-# Run the Phoenix server
-CMD ["mix", "phx.server"] 

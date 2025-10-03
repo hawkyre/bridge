@@ -1,0 +1,93 @@
+default_model: o1-pro-2024
+models:
+  o3-2025-04-16:
+    id: o3-2025-04-16
+    name: 'OpenAI o3'
+    provider: openai
+    type: chat
+    max_tokens: 32000
+    input_cost_per_token: 0.00001
+    output_cost_per_token: 0.00004
+    context_window: 200000
+    aliases:
+      - o3
+      - o3-latest
+
+  o4-mini-2025-04-16:
+    id: o4-mini-2025-04-16
+    name: 'OpenAI o4-mini'
+    provider: openai
+    type: chat
+    max_tokens: 16384
+    input_cost_per_token: 0.0000005
+    output_cost_per_token: 0.000002
+    context_window: 128000
+    aliases:
+      - o4-mini
+      - o4-mini-latest
+
+  gpt-4.1-2025:
+    id: gpt-4.1-2025
+    name: 'GPT-4.1'
+    provider: openai
+    type: chat
+    max_tokens: 16384
+    input_cost_per_token: 0.000005
+    output_cost_per_token: 0.000015
+    context_window: 128000
+    aliases:
+      - gpt-4.1
+      - gpt-4.1-latest
+
+  o1-pro-2024:
+    id: o1-pro-2024
+    name: 'OpenAI o1-pro'
+    provider: openai
+    type: chat
+    max_tokens: 32000
+    input_cost_per_token: 0.00006
+    output_cost_per_token: 0.00024
+    context_window: 200000
+    aliases:
+      - o1-pro
+      - o1-pro-latest
+
+  gpt-4o:
+    id: gpt-4o
+    name: 'GPT-4o'
+    provider: openai
+    type: chat
+    max_tokens: 4096
+    input_cost_per_token: 0.000005
+    output_cost_per_token: 0.000015
+    context_window: 128000
+
+  gpt-4o-mini:
+    id: gpt-4o-mini
+    name: 'GPT-4o Mini'
+    provider: openai
+    type: chat
+    max_tokens: 16384
+    input_cost_per_token: 0.00000015
+    output_cost_per_token: 0.0000006
+    context_window: 128000
+
+  gpt-4-turbo:
+    id: gpt-4-turbo
+    name: 'GPT-4 Turbo'
+    provider: openai
+    type: chat
+    max_tokens: 4096
+    input_cost_per_token: 0.00001
+    output_cost_per_token: 0.00003
+    context_window: 128000
+
+  gpt-3.5-turbo:
+    id: gpt-3.5-turbo
+    name: 'GPT-3.5 Turbo'
+    provider: openai
+    type: chat
+    max_tokens: 4096
+    input_cost_per_token: 0.0000005
+    output_cost_per_token: 0.0000015
+    context_window: 16385
